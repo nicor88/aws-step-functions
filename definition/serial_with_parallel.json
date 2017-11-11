@@ -1,0 +1,49 @@
+{
+  "Comment": "Example",
+  "StartAt": "firstTask",
+  "Version": "1.0",
+  "TimeoutSeconds": 300,
+  "States": {
+    "firstTask": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:eu-west-1:749785218022:function:return_input",
+      "Next": "secondTask"
+    },
+    "secondTask": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:eu-west-1:749785218022:function:return_input",
+      "Next": "thirdTask"
+    },
+    "thirdTask": {
+      "Type": "Parallel",
+      "Branches": [
+        {
+          "StartAt": "ParallelTask1",
+          "States": {
+            "ParallelTask1": {
+              "Type": "Task",
+              "Resource": "arn:aws:lambda:eu-west-1:749785218022:function:return_input",
+              "End": true
+            }
+          }
+        },
+        {
+          "StartAt": "ParallelTask2",
+          "States": {
+            "ParallelTask2": {
+              "Type": "Task",
+              "Resource": "arn:aws:lambda:eu-west-1:749785218022:function:return_input",
+              "End": true
+            }
+          }
+        }
+      ],
+      "Next": "fourthTask"
+    },
+    "fourthTask": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:eu-west-1:749785218022:function:return_input",
+      "End": true
+    }
+  }
+}
